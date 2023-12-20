@@ -1,0 +1,58 @@
+.container {
+    position: relative;
+    min-width: 120px;
+
+    &:hover .hover {
+        display: flex;
+    }
+}
+
+.close .body {
+    display: none!important;
+}
+
+.label {
+    cursor: pointer;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    user-select: none;
+    touch-action: none;
+}
+
+.body {
+    position: absolute;
+    flex-direction: column;
+    display: none;
+    background: #19215b;
+    padding: 10px;
+    border-radius: 12px;
+    gap: 8px;
+    width: 100%;
+}
+
+.open {
+    & .body {
+        display: flex;
+    }
+}
+.hover {
+    display: none;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    padding: 10px;
+    background: #404da6;
+    color: #FFF;
+    transition: .2s all ease;
+    cursor: pointer;
+    &:hover {
+        background: #7180e5;
+    }
+}
