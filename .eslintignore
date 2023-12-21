@@ -1,0 +1,5 @@
+.next
+.husky
+public
+*.config*
+custom.d.ts
