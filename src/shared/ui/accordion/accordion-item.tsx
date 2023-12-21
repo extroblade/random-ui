@@ -8,6 +8,7 @@ export type AccordionItemClassNames = {
   containerClassName?: string;
   labelClassName?: string;
 };
+
 export const AccordionItem = ({
   children,
   label,
