@@ -1,0 +1,44 @@
+.accordion {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    padding: 10px;
+    border: 1px solid #858585;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    transition: .1s max-height ease-in-out;
+}
+
+.open {
+    max-height: 40px;
+}
+.label {
+    display: flex;
+    gap: 8px;
+    user-select: none;
+    cursor: pointer;
+    justify-content: space-between;
+
+}
+
+.arrow {
+    display: flex;
+    transform: rotate(0.25turn);
+    align-items: center;
+    flex-direction: column;
+    &.rotate {
+        transform: rotate(0.75turn);
+    }
+}
+

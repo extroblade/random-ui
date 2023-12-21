@@ -26,11 +26,12 @@
     position: absolute;
     flex-direction: column;
     display: none;
-    background: #19215b;
+    background: #dadada;
     padding: 10px;
     border-radius: 12px;
     gap: 8px;
     width: 100%;
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.08);
 }
 
 .open {
@@ -48,11 +49,11 @@
     justify-content: center;
     border-radius: 12px;
     padding: 10px;
-    background: #404da6;
+    background: #858585;
     color: #FFF;
     transition: .2s all ease;
     cursor: pointer;
     &:hover {
-        background: #7180e5;
+        background: #737373;
     }
 }
