@@ -1,8 +1,10 @@
 'use client';
-import s from './select.module.css';
-import React, { memo, useCallback, useRef, useState } from 'react';
 import { clsx } from 'clsx';
+import React, { memo, useCallback, useRef, useState } from 'react';
+
 import { useOnClickOutside } from '@/shared/hooks/useOutsideClick';
+
+import s from './select.module.css';
 
 type SelectClassNames = {
   containerClassName?: string;
@@ -68,7 +70,6 @@ export const Select = memo(
       },
       [selectedMulti],
     );
-    console.log('here', label);
     const handleSelect = useCallback(
       (option: Option) => {
         isSingle ? handleSingleSelect(option) : handleMultiSelect(option);

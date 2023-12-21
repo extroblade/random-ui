@@ -1,0 +1,11 @@
+.skeleton {
+    background:
+            linear-gradient(135deg, #d0d0d0 33%, #b9b9b9 50%,#d0d0d0 66%) #8287a2;
+    background-size:300% 100%;
+
+    animation: sk 1s infinite linear;
+}
+
+@keyframes sk {
+    0% {background-position: right}
+}

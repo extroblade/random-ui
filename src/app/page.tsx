@@ -1,6 +1,6 @@
-'use client';
 import { Accordion } from '@/shared/ui/accordion';
 import { Select } from '@/shared/ui/select';
+import { Skeleton } from '@/shared/ui/skeleton';
 
 const sampleSelect = [
   { id: 1, title: 'Value1' },
@@ -21,6 +21,8 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className={'flex'}>
         <Accordion items={sampleAccordion} />
+        <Select label={'Select'} options={sampleSelect} isHover={false} />
+        <Skeleton width={300} height={40} borderRadius={12} />
       </div>
     </main>
   );
