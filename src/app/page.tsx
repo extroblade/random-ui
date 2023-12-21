@@ -19,10 +19,10 @@ const sampleAccordion = [
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className={'flex'}>
+      <div className={'flex gap-8'}>
         <Accordion items={sampleAccordion} />
         <Select label={'Select'} options={sampleSelect} isHover={false} />
-        <Skeleton width={300} height={40} borderRadius={12} />
+        <Skeleton width={250} height={250} borderRadius={32} />
       </div>
     </main>
   );
