@@ -1,5 +1,8 @@
 'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
 import { Accordion } from '@/shared/ui/accordion';
 import { Button } from '@/shared/ui/button';
@@ -22,13 +25,30 @@ const sampleAccordion = [
   { id: 4, label: 'Value4', body: <p>body</p> },
 ];
 
+const schema = z.object({
+  username: z.string(),
+});
+
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, dirtyFields, isValid },
+    resetField,
+    watch,
+    reset,
+  } = useForm({
+    reValidateMode: 'onBlur',
+    mode: 'onBlur',
+    resolver: zodResolver(schema),
+  });
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className={'flex gap-8'}>
         <Accordion items={sampleAccordion} />
         <Select
+          shouldCloseOnClick
           isSingle
           label={'Select'}
           options={sampleSelect}
@@ -41,7 +61,12 @@ export default function Home() {
         </Modal>
       </div>
       <div>
-        <Input left={'left'} right={'right'} comment={'comment'} />
+        <Input
+          isError={undefined}
+          left={'left'}
+          right={'right'}
+          comment={'comment'}
+        />
       </div>
       <div className={'flex gap-8'}>
         <Button onClick={() => console.log(1)}>button primary</Button>

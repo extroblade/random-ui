@@ -75,6 +75,7 @@ export const Select = memo(
       (option: Option) => {
         isSingle ? handleSingleSelect(option) : handleMultiSelect(option);
         if (shouldCloseOnClick) {
+          setIsOpen(() => false);
           setIsClosing(() => true);
           setTimeout(() => setIsClosing(false), 50);
         }
