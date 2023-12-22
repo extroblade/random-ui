@@ -28,10 +28,7 @@ const sampleAccordion = [
 
 const schema = z.object({
   email: z.string().email(),
-  phone: z
-    .string()
-    .regex(/^[+]*[(]?[0-9][)]?[-\s./0-9]{14}$/g)
-    .optional(),
+  phone: z.string().regex(/^[+]*[(]?[0-9][)]?[-\s./0-9]{14}$/g),
 });
 
 export default function Home() {
@@ -68,7 +65,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className={'flex gap-8'}>
+      <div className={'flex gap-8 items-start'}>
         <Accordion items={sampleAccordion} />
         <Select
           shouldCloseOnClick
@@ -77,7 +74,7 @@ export default function Home() {
           options={sampleSelect}
           isHover={false}
         />
-        <Skeleton width={250} height={250} borderRadius={32} />
+        <Skeleton width={220} height={24} borderRadius={32} />
         <button onClick={() => setIsOpen(true)}>open</button>
         <Modal isOpen={isOpen} handleClose={() => setIsOpen(false)}>
           <div className={'h-lvh min-h-[calc(100vh-64px)]'}>modal</div>
@@ -95,9 +92,8 @@ export default function Home() {
         <Input
           label={'Номер телефона'}
           register={registerWithMask}
-          mask={'+[9] [9][9][9] [9][9][9] [9][9] [9][9]'}
+          mask={['+[9]', '+[9] [9][9][9] [9][9][9] [9][9] [9][9]']}
           name={'phone'}
-          className={'placeholder-opacity-0!important'}
           isError={dirtyFields['phone'] && !!errors['phone']}
           left={undefined}
           onRightClick={() => resetField('phone')}
@@ -110,7 +106,7 @@ export default function Home() {
       <div className={'flex gap-8'}>
         <Button onClick={() => console.log(1)}>button primary</Button>
         <Button onClick={() => console.log(2)} variant={'secondary'}>
-          button primary
+          button secondary
         </Button>
         <Button href={'https://vk.ru'}>link!</Button>
       </div>

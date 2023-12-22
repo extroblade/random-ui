@@ -1,59 +1,59 @@
 .container {
-    position: relative;
-    min-width: 120px;
+  position: relative;
+  min-width: 120px;
 
-    &:hover .hover {
-        display: flex;
-    }
+  &:hover .hover {
+    display: flex;
+  }
 }
 
 .close .body {
-    display: none!important;
+  display: none !important;
 }
 
 .label {
-    cursor: pointer;
-    padding-bottom: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    user-select: none;
-    touch-action: none;
+  cursor: pointer;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  user-select: none;
+  touch-action: none;
 }
 
 .body {
-    position: absolute;
-    flex-direction: column;
-    display: none;
-    background: #dadada;
-    padding: 10px;
-    border-radius: 12px;
-    gap: 8px;
-    width: 100%;
-    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.08);
+  position: absolute;
+  flex-direction: column;
+  display: none;
+  background: #dadada;
+  padding: 10px;
+  border-radius: 12px;
+  gap: 8px;
+  width: 100%;
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.08);
 }
 
 .open {
-    & .body {
-        display: flex;
-    }
+  & .body {
+    display: flex;
+  }
 }
 .hover {
-    display: none;
+  display: none;
 }
 
 .option {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    padding: 10px;
-    background: #858585;
-    color: #FFF;
-    transition: .2s all ease;
-    cursor: pointer;
-    &:hover {
-        background: #737373;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  padding: 10px;
+  background: #858585;
+  color: #fff;
+  transition: 0.2s all ease;
+  cursor: pointer;
+  &:hover {
+    background: #737373;
+  }
 }

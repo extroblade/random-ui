@@ -1,19 +1,19 @@
 .button {
-    all: unset;
-    cursor: pointer;
-    box-sizing: border-box;
-    border-radius: 100px;
-    transition: background-color 0.1s;
-    user-select: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  all: unset;
+  cursor: pointer;
+  box-sizing: border-box;
+  border-radius: 100px;
+  transition: background-color 0.1s;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .primary {
-    background-color: green;
+  background-color: green;
 }
 
 .secondary {
-    background-color: red;
+  background-color: red;
 }

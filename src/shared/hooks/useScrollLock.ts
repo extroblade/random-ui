@@ -1,13 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export const useScrollLock = () => {
+export const useScrollLock = (state: boolean) => {
   const [body, setBody] = useState<HTMLElement>();
-
-  useEffect(() => {
-    if (typeof window === undefined) return;
-
-    setBody(() => document.body);
-  }, []);
   const lock = useCallback(() => {
     if (body && 'style' in body) {
       body.style.overflowY = 'hidden';
@@ -18,5 +12,17 @@ export const useScrollLock = () => {
       body.style.overflowY = 'auto';
     }
   }, [body]);
-  return { lock, unlock };
+  useEffect(() => {
+    if (typeof window === undefined) return;
+
+    setBody(() => document.body);
+  }, []);
+
+  useEffect(() => {
+    if (state) {
+      lock();
+      return;
+    }
+    unlock();
+  }, [state, lock, unlock]);
 };

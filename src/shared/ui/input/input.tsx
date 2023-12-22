@@ -11,7 +11,7 @@ type InputClassNames = {
 type RHFProps = {
   name?: string;
   register?: any;
-  mask?: string;
+  mask?: string | string[];
 };
 
 export const Input = ({

@@ -15,15 +15,8 @@ export const Modal = ({
   handleClose: () => void;
   children: ReactNode;
 }) => {
-  const { lock, unlock } = useScrollLock();
+  useScrollLock(isOpen || false);
 
-  useEffect(() => {
-    if (isOpen) {
-      lock();
-      return;
-    }
-    unlock();
-  }, [isOpen, lock, unlock]);
   const modalRef = useRef<HTMLDivElement>(null);
   useOnClickOutside(modalRef, handleClose);
   useKey('Escape', handleClose);
