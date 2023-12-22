@@ -98,9 +98,15 @@ export const Select = memo(
       >
         <div
           onClick={() => !isHover && handleToggle()}
-          className={clsx(s.label, labelClassName)}>
+          className={clsx(s.label, labelClassName)}
+        >
           {!!selectedSingle && selectedSingle.title}
-          {!!selectedMulti && selectedMulti.map(v => <div onClick={() => handleMultiSelect(v)} key={v.id}>{v.title}</div>)}
+          {!!selectedMulti &&
+            selectedMulti.map((v) => (
+              <div onClick={() => handleMultiSelect(v)} key={v.id}>
+                {v.title}
+              </div>
+            ))}
           {!selectedMulti?.length && !selectedSingle && label}
         </div>
         <div className={clsx(s.body, isHover && s.hover, bodyClassName)}>
