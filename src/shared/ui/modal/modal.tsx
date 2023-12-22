@@ -1,13 +1,11 @@
-'use client';
-import { ReactNode, useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { ReactNode, useEffect, useRef } from 'react';
 
 import { useKey } from '@/shared/hooks/useKey';
 import { useOnClickOutside } from '@/shared/hooks/useOutsideClick';
 import { useScrollLock } from '@/shared/hooks/useScrollLock';
+import { Portal } from '@/shared/ui/portal';
 
 import s from './modal.module.css';
-const MODAL_ROOT = 'modal-root';
 export const Modal = ({
   isOpen,
   handleClose,
@@ -17,13 +15,7 @@ export const Modal = ({
   handleClose: () => void;
   children: ReactNode;
 }) => {
-  const [root, setRoot] = useState<HTMLDivElement>();
   const { lock, unlock } = useScrollLock();
-  useEffect(() => {
-    const el = document.getElementById(MODAL_ROOT);
-    if (!el) return;
-    setRoot(() => el as HTMLDivElement);
-  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -32,19 +24,20 @@ export const Modal = ({
     }
     unlock();
   }, [isOpen, lock, unlock]);
-  const contentRef = useRef<HTMLDivElement>(null);
-  useOnClickOutside(contentRef, handleClose);
+  const modalRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(modalRef, handleClose);
   useKey('Escape', handleClose);
-  const content = (
-    <div className={s.modal}>
-      <div ref={contentRef} className={s.content}>
-        <button className={s.close} onClick={handleClose}>
-          x
-        </button>
-        {children}
+  if (!isOpen) return <></>;
+  return (
+    <Portal>
+      <div className={s.overlay}>
+        <div ref={modalRef} className={s.modal}>
+          <button className={s.close} onClick={handleClose}>
+            x
+          </button>
+          {children}
+        </div>
       </div>
-    </div>
+    </Portal>
   );
-  if (!root || !isOpen) return <></>;
-  return ReactDOM.createPortal(content, root);
 };

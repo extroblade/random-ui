@@ -1,22 +1,25 @@
 import { Key, useCallback, useEffect } from 'react';
 
-const KEY_EVENT_TYPE = 'keyup';
-
-export function useKey(key: Key, cb: () => void) {
-  const handleEscKey = useCallback(
+export function useKey(
+  key: Key,
+  cb: () => void,
+  key_event: 'keyup' | 'keydown' = 'keyup',
+) {
+  const keyCallback = useCallback(
     (event: KeyboardEvent) => {
-      if (event.key === key) {
-        cb();
+      if (event.key !== key) {
+        return;
       }
+      cb();
     },
     [cb, key],
   );
 
   useEffect(() => {
-    document.addEventListener(KEY_EVENT_TYPE, handleEscKey, false);
+    document.addEventListener(key_event, keyCallback, false);
 
     return () => {
-      document.removeEventListener(KEY_EVENT_TYPE, handleEscKey, false);
+      document.removeEventListener(key_event, keyCallback, false);
     };
-  }, [handleEscKey]);
+  }, [keyCallback, key_event]);
 }

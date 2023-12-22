@@ -1,6 +1,5 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { clsx } from 'clsx';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHookFormMask } from 'use-mask-input';
@@ -40,9 +39,8 @@ export default function Home() {
   const {
     register,
     handleSubmit,
-    formState: { errors, dirtyFields, isValid },
+    formState: { errors, dirtyFields },
     resetField,
-    watch,
     reset,
   } = useForm({
     reValidateMode: 'onChange',
@@ -61,6 +59,7 @@ export default function Home() {
         formData['email'],
         formData['phone'].replace(/ /g, ''),
       );
+      reset();
     },
     (errors) => {
       console.log('invalid', errors);

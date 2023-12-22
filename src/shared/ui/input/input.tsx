@@ -57,7 +57,7 @@ export const Input = ({
         <input
           id={id}
           className={clsx(s.input, className)}
-          {...(register && register(name, mask))}
+          {...(register && name && register(name, mask))}
           {...props}
         />
         {right && (
