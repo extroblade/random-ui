@@ -2,6 +2,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useHookFormMask } from 'use-mask-input';
 import * as z from 'zod';
 
 import { Accordion } from '@/shared/ui/accordion';
@@ -26,7 +27,11 @@ const sampleAccordion = [
 ];
 
 const schema = z.object({
-  username: z.string(),
+  email: z.string().email(),
+  phone: z
+    .string()
+    .regex(/^[+]*[(]?[0-9]{1}[)]?[-\s./0-9]{14}$/g)
+    .optional(),
 });
 
 export default function Home() {
@@ -39,10 +44,28 @@ export default function Home() {
     watch,
     reset,
   } = useForm({
-    reValidateMode: 'onBlur',
+    reValidateMode: 'onChange',
     mode: 'onBlur',
+    defaultValues: {
+      phone: '',
+      email: '',
+    },
     resolver: zodResolver(schema),
   });
+  const registerWithMask = useHookFormMask(register);
+  const handleClick = handleSubmit(
+    (formData) => {
+      console.log(
+        'valid',
+        formData['email'],
+        formData['phone'].replace(/ /g, ''),
+      );
+    },
+    (errors) => {
+      console.log('invalid', errors);
+    },
+  );
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className={'flex gap-8'}>
@@ -60,12 +83,26 @@ export default function Home() {
           <div className={'h-lvh min-h-[calc(100vh-64px)]'}>modal</div>
         </Modal>
       </div>
+      <div className={'flex flex-col'}>
+        <button onClick={handleClick}>log both inputs</button>
+        <input
+          className={'border-2 rounded px-3 py-1'}
+          type="text"
+          {...register('email')}
+        />
+      </div>
       <div>
         <Input
-          isError={undefined}
-          left={'left'}
-          right={'right'}
-          comment={'comment'}
+          label={'Номер телефона'}
+          register={registerWithMask}
+          mask={'+[9] [9][9][9] [9][9][9] [9][9] [9][9]'}
+          name={'phone'}
+          className={'placeholder-opacity-0!important'}
+          isError={dirtyFields['phone']}
+          left={undefined}
+          onRightClick={() => resetField('phone')}
+          right={<div className={'cursor-pointer'}>x</div>}
+          comment={dirtyFields['phone'] && errors['phone'] && 'invalid'}
         />
       </div>
       <div className={'flex gap-8'}>

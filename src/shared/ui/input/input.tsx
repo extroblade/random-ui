@@ -8,17 +8,29 @@ type InputClassNames = {
   labelClassName?: string;
 };
 
+type RHFProps = {
+  name?: string;
+  register?: any;
+  mask?: string;
+};
+
 export const Input = ({
+  name,
+  mask,
+  register,
   left,
   right,
   onLeftClick,
   onRightClick,
+  label,
   comment,
   isError,
   labelClassName,
   containerClassName,
+  className,
   ...props
 }: {
+  label?: ReactNode;
   isError?: boolean;
   left?: ReactNode;
   right?: ReactNode;
@@ -26,21 +38,33 @@ export const Input = ({
   onLeftClick?: () => void;
   onRightClick?: () => void;
 } & InputHTMLAttributes<HTMLInputElement> &
-  InputClassNames) => {
+  InputClassNames &
+  RHFProps) => {
   const id = useId();
   return (
     <div className={clsx(s.container, containerClassName)}>
-      <label htmlFor={id} className={clsx(s.label, labelClassName)}>
-        label
-      </label>
+      {!!label && (
+        <label htmlFor={id} className={clsx(s.label, labelClassName)}>
+          {label}
+        </label>
+      )}
       <label htmlFor={id} className={s.input_field}>
-        <div className={s.icon} onClick={() => onLeftClick?.()}>
-          {left}
-        </div>
-        <input id={id} className={s.input} {...props} />
-        <div className={s.icon} onClick={() => onRightClick?.()}>
-          {right}
-        </div>
+        {left && (
+          <div className={s.icon} onClick={() => onLeftClick?.()}>
+            {left}
+          </div>
+        )}
+        <input
+          id={id}
+          className={clsx(s.input, className)}
+          {...(register && register(name, mask))}
+          {...props}
+        />
+        {right && (
+          <div className={s.icon} onClick={() => onRightClick?.()}>
+            {right}
+          </div>
+        )}
       </label>
       {comment && (
         <label
