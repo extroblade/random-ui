@@ -65,6 +65,7 @@ export const Select = memo(
           setSelectedMulti(
             (values) => values?.filter((value) => value.id !== option.id),
           );
+          return;
         }
         setSelectedMulti((values) => [...(values || []), option]);
       },
@@ -94,10 +95,13 @@ export const Select = memo(
           isClosing && s.close,
           containerClassName,
         )}
-        onClick={() => !isHover && handleToggle()}
       >
-        <div className={clsx(s.label, labelClassName)}>
-          {!!selectedSingle ? selectedSingle.title : label}
+        <div
+          onClick={() => !isHover && handleToggle()}
+          className={clsx(s.label, labelClassName)}>
+          {!!selectedSingle && selectedSingle.title}
+          {!!selectedMulti && selectedMulti.map(v => <div onClick={() => handleMultiSelect(v)} key={v.id}>{v.title}</div>)}
+          {!selectedMulti?.length && !selectedSingle && label}
         </div>
         <div className={clsx(s.body, isHover && s.hover, bodyClassName)}>
           {options.map((option) => (

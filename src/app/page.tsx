@@ -21,7 +21,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className={'flex gap-8'}>
         <Accordion items={sampleAccordion} />
-        <Select label={'Select'} options={sampleSelect} isHover={false} />
+        <Select isSingle={false} label={'Select'} options={sampleSelect} isHover={false} />
         <Skeleton width={250} height={250} borderRadius={32} />
       </div>
     </main>
