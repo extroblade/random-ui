@@ -1,5 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { clsx } from 'clsx';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHookFormMask } from 'use-mask-input';
@@ -30,7 +31,7 @@ const schema = z.object({
   email: z.string().email(),
   phone: z
     .string()
-    .regex(/^[+]*[(]?[0-9]{1}[)]?[-\s./0-9]{14}$/g)
+    .regex(/^[+]*[(]?[0-9][)]?[-\s./0-9]{14}$/g)
     .optional(),
 });
 
@@ -91,18 +92,20 @@ export default function Home() {
           {...register('email')}
         />
       </div>
-      <div>
+      <div className={'w-[350px]'}>
         <Input
           label={'Номер телефона'}
           register={registerWithMask}
           mask={'+[9] [9][9][9] [9][9][9] [9][9] [9][9]'}
           name={'phone'}
           className={'placeholder-opacity-0!important'}
-          isError={dirtyFields['phone']}
+          isError={dirtyFields['phone'] && !!errors['phone']}
           left={undefined}
           onRightClick={() => resetField('phone')}
-          right={<div className={'cursor-pointer'}>x</div>}
-          comment={dirtyFields['phone'] && errors['phone'] && 'invalid'}
+          right={dirtyFields['phone'] && <div>x</div>}
+          comment={
+            dirtyFields['phone'] && (errors['phone'] ? 'invalid' : 'valid')
+          }
         />
       </div>
       <div className={'flex gap-8'}>
