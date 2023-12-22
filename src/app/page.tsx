@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { Accordion } from '@/shared/ui/accordion';
 import { Button } from '@/shared/ui/button';
+import { Input } from '@/shared/ui/input';
 import { Modal } from '@/shared/ui/modal';
 import { Select } from '@/shared/ui/select';
 import { Skeleton } from '@/shared/ui/skeleton';
@@ -38,6 +39,9 @@ export default function Home() {
         <Modal isOpen={isOpen} handleClose={() => setIsOpen(false)}>
           <div className={'h-lvh min-h-[calc(100vh-64px)]'}>modal</div>
         </Modal>
+      </div>
+      <div>
+        <Input left={'left'} right={'right'} comment={'comment'} />
       </div>
       <div className={'flex gap-8'}>
         <Button onClick={() => console.log(1)}>button primary</Button>
