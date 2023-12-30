@@ -33,10 +33,10 @@
 
 .arrow {
   display: flex;
-  transform: rotate(0.25turn);
+  transform: rotate(0.75turn);
   align-items: center;
   flex-direction: column;
   &.rotate {
-    transform: rotate(0.75turn);
+    transform: rotate(0.25turn);
   }
 }

@@ -1,10 +1,10 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHookFormMask } from 'use-mask-input';
 import * as z from 'zod';
 
+import { regex } from '@/shared/const/regex';
 import { Accordion } from '@/shared/ui/accordion';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
@@ -28,11 +28,10 @@ const sampleAccordion = [
 
 const schema = z.object({
   email: z.string().email(),
-  phone: z.string().regex(/^[+]*[(]?[0-9][)]?[-\s./0-9]{14}$/g),
+  phone: z.string().regex(regex.email),
 });
 
 export default function Home() {
-  const [isOpen, setIsOpen] = useState(false);
   const {
     register,
     handleSubmit,
@@ -41,7 +40,7 @@ export default function Home() {
     reset,
   } = useForm({
     reValidateMode: 'onChange',
-    mode: 'onBlur',
+    mode: 'onTouched',
     defaultValues: {
       phone: '',
       email: '',
@@ -75,7 +74,7 @@ export default function Home() {
           isHover={false}
         />
         <Skeleton width={220} height={24} borderRadius={32} />
-        <Button href={'?modal=default'}>modal</Button>
+        <Button href={'?modal=default'}>modal link</Button>
         <Modal id={'default'}>
           <div className={'h-lvh min-h-[calc(100vh-64px)]'}>modal</div>
         </Modal>
@@ -94,7 +93,7 @@ export default function Home() {
           register={registerWithMask}
           mask={['+[9]', '+[9] [9][9][9] [9][9][9] [9][9] [9][9]']}
           name={'phone'}
-          isError={dirtyFields['phone'] && !!errors['phone']}
+          isError={!!errors['phone']}
           left={undefined}
           onRightClick={() => resetField('phone')}
           right={dirtyFields['phone'] && <div>x</div>}
@@ -108,7 +107,6 @@ export default function Home() {
         <Button onClick={() => console.log(2)} variant={'secondary'}>
           button secondary
         </Button>
-        <Button href={'https://vk.ru'}>link!</Button>
       </div>
     </main>
   );
