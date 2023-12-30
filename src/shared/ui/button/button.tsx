@@ -36,7 +36,7 @@ export const Button = ({
       <Link
         className={styles}
         href={href}
-        target="_blank"
+        target="_self"
         {...(props as Omit<ButtonAsLinkProps, 'href'>)}
       >
         {children}

@@ -75,8 +75,8 @@ export default function Home() {
           isHover={false}
         />
         <Skeleton width={220} height={24} borderRadius={32} />
-        <button onClick={() => setIsOpen(true)}>open</button>
-        <Modal isOpen={isOpen} handleClose={() => setIsOpen(false)}>
+        <Button href={'?modal=default'}>modal</Button>
+        <Modal id={'default'}>
           <div className={'h-lvh min-h-[calc(100vh-64px)]'}>modal</div>
         </Modal>
       </div>

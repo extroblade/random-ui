@@ -1,4 +1,5 @@
-import { ReactNode, useEffect, useRef } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
 import { useKey } from '@/shared/hooks/useKey';
 import { useOnClickOutside } from '@/shared/hooks/useOutsideClick';
@@ -7,20 +8,29 @@ import { Portal } from '@/shared/ui/portal';
 
 import s from './modal.module.css';
 export const Modal = ({
-  isOpen,
-  handleClose,
+  id,
   children,
 }: {
-  isOpen?: boolean;
-  handleClose: () => void;
+  id: string;
   children: ReactNode;
 }) => {
-  useScrollLock(isOpen || false);
-
+  const searchParams = useSearchParams();
+  const path = usePathname();
+  const router = useRouter();
+  const [isParamsOpen, setIsParamsOpen] = useState(
+    searchParams.get('modal') == id,
+  );
+  const handleClose = () => {
+    router.push(path);
+  };
   const modalRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    setIsParamsOpen(() => searchParams.get('modal') == id);
+  }, [id, searchParams]);
+  useScrollLock(isParamsOpen || false);
   useOnClickOutside(modalRef, handleClose);
   useKey('Escape', handleClose);
-  if (!isOpen) return <></>;
+  if (!isParamsOpen) return <></>;
   return (
     <Portal>
       <div className={s.overlay}>
