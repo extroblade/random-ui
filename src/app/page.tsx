@@ -65,7 +65,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className={'flex gap-8 items-start'}>
-        <Accordion items={sampleAccordion} />
+        <Accordion defaultIndex={2} items={sampleAccordion} />
         <Select
           shouldCloseOnClick
           isSingle

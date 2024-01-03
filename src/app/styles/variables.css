@@ -1,0 +1,20 @@
+:root {
+    --color: #000;
+}
+
+/*@media (prefers-color-scheme: dark) {*/
+/*    :root {*/
+/*        --color: #FFF;*/
+/*    }*/
+/*}*/
+
+[data-theme='dark'] {
+    :root {
+        --color: #FFF;
+    }
+}
+
+
+* {
+    color: var(--color);
+}

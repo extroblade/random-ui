@@ -14,12 +14,18 @@ export const Accordion = ({
   items,
   className,
   itemClassNames,
+  defaultIndex,
 }: {
   items: iAccordion[];
   itemClassNames?: AccordionItemClassNames;
   className?: string;
+  defaultIndex?: number;
 }) => {
-  const [currentItem, setCurrentItem] = useState<iAccordion | null>(items?.[0]);
+  const [currentItem, setCurrentItem] = useState<iAccordion | null>(
+    defaultIndex !== undefined
+      ? items?.[Math.max(Math.min(defaultIndex, items.length - 1), 0)]
+      : null,
+  );
 
   const handleSingleSelect = (item: iAccordion) => {
     setCurrentItem((value) => (item.id === value?.id ? null : item));
