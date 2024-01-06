@@ -5,7 +5,7 @@ import { useHookFormMask } from 'use-mask-input';
 import * as z from 'zod';
 
 import { regex } from '@/shared/const/regex';
-import { useSearchParamsState } from '@/shared/hooks/useSearchParamsState';
+import { useQueryState } from '@/shared/hooks/useQueryState';
 import { Accordion } from '@/shared/ui/accordion';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
@@ -62,8 +62,8 @@ export default function Home() {
       console.log('invalid', errors);
     },
   );
-  const [val, setVal] = useSearchParamsState({ key: 'bob' });
-  const [val2, setVal2] = useSearchParamsState({ key: 'bib' });
+  const [val, setVal] = useQueryState({ key: 'bob' });
+  const [val2, setVal2] = useQueryState({ key: 'bib' });
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <input

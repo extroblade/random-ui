@@ -1,28 +1,30 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export const useSearchParamsState = <Value>({
+type useQueryStateProps<Value> = {
+  key: string;
+  serialize?: (value: Value | null) => string;
+  deserialize?: (value: string) => Value;
+};
+
+export const useQueryState = <Value>({
   key,
   serialize = String,
-  deserialize = <Value>(v: string | null) => v as Value,
-}: {
-  key: string;
-  serialize?: (...args: any[]) => string;
-  deserialize?: (...args: any[]) => Value;
-}) => {
+  deserialize = <Value>(v: string) => v as Value,
+}: useQueryStateProps<Value>) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const [value, setValue] = useState<Value | null>(() => {
-    const param = searchParams.get(key);
+    const param = searchParams.get(key) || '';
     return deserialize ? deserialize(param) : null;
   });
 
   const serializedValue = serialize ? serialize(value) : '';
 
   useEffect(() => {
-    const current = new URLSearchParams(Array.from(searchParams.entries())); // -> has to use this form
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
 
     if (value == null || serializedValue.trim() == '') {
       current.delete(key);
